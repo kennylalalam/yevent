@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Admin
+{% endblock %}
+
+{% block main %}
+    <style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 12px 52px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .button2 {background-color: #f44336;} /* Red */
+    .button3 {background-color: #e7e7e7; color: black;} /* Gray */
+    </style>
+
+    {% for i in range(entries) %}
+
+
+    <div class="card">
+        <div class="container">
+            <h4><b>{{ events[i]["name"] }}</b></h4>
+            <p>{{ events[i]["organizer"] }}</p>
+            <form method="post">
+                <button type="submit" name = "response" value = "accept_{{ events[i]["id"] }}" class="button">Accept</button>
+                <button type="submit" name = "response" value = "decline_{{ events[i]["id"] }}" class="button button2">Decline</button>
+                <button type="submit" name = "response" value = "edit_{{ events[i]["id"] }}" class="button button3">Edit</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+
+{% endblock %}

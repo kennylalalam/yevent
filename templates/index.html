@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <!-- link for calendar plugin -->
+    <script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
+
+    {% for i in range(entries) %}
+    <!-- Creates card for each event -->
+    <div class="w3-card-4">
+
+        <!-- Heading container -->
+        <div class="w3-container w3-indigo">
+            <!-- If start and end date are the same, only have to display one date -->
+            {% if startdatelist[i] == enddatelist[i] %}
+            <h4 align="left"><b>{{ startdatelist[i] }}</b></h4>
+            <!-- If they're different, display both dates -->
+            {% else %}
+            <h4 align="left"><b>{{ startdatelist[i] }} - {{ enddatelist[i] }}</b></h4>
+            {% endif %}
+        </div>
+
+        <!-- Body container -->
+        <div class="w3-container">
+            <br>
+            <!-- Event name with embedded link -->
+            <p><a href="{{ events[i]["link"] }}"><b><font size="5">{{ events[i]["name"] }}</font></b></a></p>
+
+            <!-- The rest of the info -->
+            <p>Hosted by: {{ events[i]["organizer"] }}</p>
+            {% if startdatelist[i] == enddatelist[i] %}
+            <!-- Display dates with times only when start and end date are different -->
+            <p>Time: {{ starttimelist[i] }} - {{ endtimelist[i] }}</p>
+            {% else %}
+            <p>Time: {{ starttimelist[i] }} ({{ startdatelist[i] }}) - {{ endtimelist[i] }} ({{ enddatelist[i] }})</p>
+            {% endif %}
+            <p>Description: {{ events[i]["description"] }}</p>
+            <p>Location: {{ events[i]["locationname"] }}</p>
+            <p>Address: {{ events[i]["address"] }}</p>
+            <p>Tags: {{ subjects[events[i]["subject_id"] - 1]["subject"] }}, {{ eventtypes[events[i]["eventtype_id"] - 1]["type"] }}</p>
+
+            <!-- Add to calendar button -->
+            <div title="Add to Calendar" class="addeventatc">
+                Add to Calendar
+                <span class="start">{{ starttimelist[i] }}</span>
+                <span class="end">{{ endtimelist[i] }}</span>
+                <span class="timezone">America/New_York_City</span>
+                <span class="title">{{ events[i]["name"] }}</span>
+                <span class="description">{{ events[i]["description"] }}</span>
+                <span class="location">{{ events[i]["locationname"] }}</span>
+            </div>
+            <br>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+
+{% endblock %}

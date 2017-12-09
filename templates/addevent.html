@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Event
+{% endblock %}
+
+{% block main %}
+    <!--event name, Organizer, date(make a calander)(add date), time, Description, url, Cover picture-->
+    <form action="/addevent" enctype="multipart/form-data" method="post" id="usrform">
+
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="eventname" placeholder="Event name" type="text" required/>
+        </div>
+
+        <div class="form-group">
+            <input autocomplete="off" class="form-control" name="organizer" placeholder="Organizer" type="text" required/>
+        </div>
+
+        <div class="form-group">
+            <input id="starttime" class="form-control" name="starttime" type='text' placeholder="Start time" required></input>
+            <script>
+                var dtt = document.getElementById('starttime')
+                dtt.onfocus = function (event) {
+                    this.type = 'datetime-local';
+                    this.focus();
+              }
+            </script>
+
+        <!--Set minimum time to current time-->
+
+            <script>
+                function addZero(i) {
+                    if (i < 10) {
+                        i = "0" + i;
+                    }
+                    return i;
+                }
+                var today = new Date();
+                var date = addZero(today.getFullYear())+'-'+addZero((today.getMonth()+1))+'-'+addZero(today.getDate());
+                var date2 = addZero(today.getFullYear()+1)+'-'+addZero((today.getMonth()+1))+'-'+addZero(today.getDate());
+                var time = addZero(today.getHours()) + ":" + addZero(today.getMinutes());
+                var dateTime = date+'T'+time;
+                var dateTime2 = date2+'T'+time;
+                document.getElementById("starttime").setAttribute("min", dateTime);
+                document.getElementById("starttime").setAttribute("max", dateTime2);
+            </script>
+
+        </div>
+        <div class="form-group">
+            <div class='form-group'>
+                <input id="endtime" class="form-control" name="endtime" type='text' placeholder="End time" required></input>
+
+            </div>
+
+
+            <script>
+                var dtt = document.getElementById('endtime')
+                dtt.onfocus = function (event) {
+                    this.type = 'datetime-local';
+                    this.focus();
+              }
+            </script>
+            <script>
+                function addZero(i) {
+                    if (i < 10) {
+                        i = "0" + i;
+                    }
+                    return i;
+                }
+                var today = new Date();
+                var date = addZero(today.getFullYear())+'-'+addZero((today.getMonth()+1))+'-'+addZero(today.getDate());
+                var date2 = addZero(today.getFullYear()+1)+'-'+addZero((today.getMonth()+1))+'-'+addZero(today.getDate());
+                var time = addZero(today.getHours()) + ":" + addZero(today.getMinutes());
+                var dateTime = date+'T'+time;
+                var dateTime2 = date2+'T'+time;
+                document.getElementById("endtime").setAttribute("min", dateTime);
+                document.getElementById("endtime").setAttribute("max", dateTime2);
+            </script>
+        </div>
+
+        <div class="form-group">
+
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" class="form-control" name="locationname" placeholder="Location name" type="text" required/>
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" class="form-control" name="address" placeholder="Address" type="text" required/>
+        </div>
+        <div class="form-group">
+            <select class="form-control" name="eventtype">
+                <option disabled selected value="">Event Type</option>
+                {% for eventtype in eventtypes %}
+                    <option value="{{ eventtype["type"] }}">{{ eventtype["type"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" name="subject">
+                <option disabled selected value="">Subject</option>
+                {% for subject in subjects %}
+                    <option value="{{ subject["subject"] }}">{{ subject["subject"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="link" placeholder="Link to event" type="url"/>
+        </div>
+    </form>
+
+    <textarea rows="4" cols="50" name="description" form="usrform" placeholder="Brief description of the event" class="form-control"></textarea>
+    <br>
+
+    <button class="btn btn-primary" type="addevent" form="usrform">Add Event</button>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Admin
+{% endblock %}
+
+{% block main %}
+    <style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 12px 52px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .button2 {background-color: #f44336;} /* Red */
+    .button3 {background-color: #e7e7e7; color: black;} /* Gray */
+    </style>
+
+    {% for i in range(entries) %}
+    <div class="w3-card-4">
+        <div class="w3-container w3-indigo">
+            {% if startdatelist[i] == enddatelist[i] %}
+            <h4 align="left"><b>{{ startdatelist[i] }}</b></h4>
+            {% else %}
+            <h4 align="left"><b>{{ startdatelist[i] }} - {{ enddatelist[i] }}</b></h4>
+            {% endif %}
+        </div>
+        <div class="w3-container">
+            <br>
+            <p><b><font size="5">{{ events[i]["name"] }}</font></b></p>
+            <p>Hosted by: {{ events[i]["organizer"] }}</p>
+            {% if startdatelist[i] == enddatelist[i] %}
+            <p>Time: {{ starttimelist[i] }} - {{ endtimelist[i] }}</p>
+            {% else %}
+            <p>Time: {{ starttimelist[i] }} ({{ startdatelist[i] }}) - {{ endtimelist[i] }} ({{ enddatelist[i] }})</p>
+            {% endif %}
+            <p>Description: {{ events[i]["description"] }}</p>
+            <p>Location: {{ events[i]["locationname"] }}</p>
+            <p>Address: {{ events[i]["address"] }}</p>
+            <p>Tags: {{ subjects[events[i]["subject_id"] - 1]["subject"] }}, {{ eventtypes[events[i]["eventtype_id"] - 1]["type"] }}</p>
+            <p>Link: {{ events[i]["link"] }}</p>
+            <form method="post">
+                <button type="submit" name = "response" value = "accept_{{ events[i]["id"] }}" class="button">Accept</button>
+                <button type="submit" name = "response" value = "decline_{{ events[i]["id"] }}" class="button button2">Decline</button>
+                <button type="submit" name = "response" value = "edit_{{ events[i]["id"] }}" class="button button3">Edit</button>
+            </form>
+        </div>
+
+    </div>
+    <br>
+    {% endfor %}
+
+{% endblock %}
