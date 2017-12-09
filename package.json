@@ -1,0 +1,19 @@
+{
+  "name": "yevent",
+  "version": "1.0.0",
+  "description": "A website that helps to put together different events happening in Yale",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kennylalalam/yevent.git"
+  },
+  "author": "Kenny Lam, Amber Hu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kennylalalam/yevent/issues"
+  },
+  "homepage": "https://github.com/kennylalalam/yevent#readme"
+}
