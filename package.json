@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/kennylalalam/yevent/issues"
   },
-  "homepage": "https://github.com/kennylalalam/yevent#readme"
+  "homepage": "https://github.com/kennylalalam/yevent#readme",
   "scripts": {
     "start": "node your-script.js"
 }
